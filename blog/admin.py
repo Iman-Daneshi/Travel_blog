@@ -1,5 +1,5 @@
 from django.contrib import admin
-from blog.models import Post
+from blog.models import Post, Category
 
 
 class PostAdmin(admin.ModelAdmin):
@@ -10,5 +10,6 @@ class PostAdmin(admin.ModelAdmin):
     #ordering = ['-created_date',]
     search_fields = ['title', 'content']
 
+admin.site.register(Category)
 admin.site.register(Post, PostAdmin)
 
