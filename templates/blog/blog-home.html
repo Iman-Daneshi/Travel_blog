@@ -89,6 +89,7 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-lg-8 posts-list">
+							{% if posts %}
 							{% for post in posts %}
 							<div class="single-post row">
 								<div class="col-lg-3  col-md-3 meta-details">
@@ -116,7 +117,10 @@
 									<a href="{% url 'blog:single' pid=post.id %}" class="primary-btn">View More</a>
 								</div>
 							</div>
-							{% endfor %}													
+							{% endfor %}
+							{% else %}
+							<h3 style="text-align:center;">Nothing is found</h3>
+							{% endif %}													
 		                    <nav class="blog-pagination justify-content-center d-flex">
 		                        <ul class="pagination">
 		                            <li class="page-item">

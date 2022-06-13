@@ -1,5 +1,7 @@
+from multiprocessing import context
 from django.shortcuts import render, get_object_or_404
 from blog.models import Post
+from blog.templatetags.blog_tags import post_categories
 
 def blog_view(request, **kwargs):
     posts = Post.objects.filter(status=1)
@@ -24,5 +26,13 @@ def blog_single(request, pid):
         
         }
     return render(request, 'blog/blog-single.html', context)
+
+def blog_search(request):
+    posts = Post.objects.filter(status=1)
+    if request.method == 'GET':
+        if s := request.GET.get('s'):
+            posts = posts.filter(content__contains = s)
+    context = {'posts': posts}
+    return render(request, 'blog/blog-home.html', context)
 
 
