@@ -1,0 +1,20 @@
+{% load static %}
+
+<div class="single-sidebar-widget popular-post-widget">
+	<h4 class="popular-title">Latest Posts</h4>
+		<div class="popular-post-list">
+			{% for post in latest_posts %}
+
+				<div class="single-post-list d-flex flex-row align-items-center">
+					<div class="thumb">
+						<img class="img-fluid" src="{{post.image.url}}" alt="">
+					</div>
+					<div class="details">
+						<a href="blog-single.html"><h6>{{post.title}}</h6></a>
+						
+						<p>02 Hours ago</p>
+					</div>
+				</div>
+			{% endfor %}																				
+		</div>
+</div>
