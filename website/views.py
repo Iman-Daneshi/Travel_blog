@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from website.forms import ContactForm, NewsLetterForm
@@ -25,6 +26,12 @@ def contact_view(request):
         form = ContactForm(request.POST)    
         if form.is_valid():
             form.save()
-    context = {'form': form}
-    return render(request,'website/contact.html', context)
+            message = messages.add_message(request, messages.SUCCESS, 'Your ticket is submitted successfully.')
+        else:
+            message = messages.add_message(request, messages.ERROR, 'Your ticket is not submitted successfully')
+    context = {
+        'form': form,
+        'message': message
+    }
+    return render(request, 'website/contact.html', context)
 
