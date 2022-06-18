@@ -54,7 +54,7 @@
 						<h3 class="mt-20 mb-20">{{ post.title }}</h3>
 						<p class="excert">
 
-							{{ post.content }}	
+							{{ post.content|safe }}	
 
 						</p>
 					</div>
@@ -218,7 +218,7 @@
 					
 					{% include 'blog/blog-search.html' %}
 					
-					{% include 'blog/blog-writer.html' with author='???' %}
+					{% include 'blog/blog-writer.html' %}
 
 					{% post_categories %}		
 
