@@ -26,12 +26,11 @@ def contact_view(request):
         form = ContactForm(request.POST)    
         if form.is_valid():
             form.save()
-            message = messages.add_message(request, messages.SUCCESS, 'Your ticket is submitted successfully.')
+            messages.add_message(request, messages.SUCCESS, 'Your ticket is submitted successfully.')
         else:
-            message = messages.add_message(request, messages.ERROR, 'Your ticket is not submitted successfully')
+            messages.add_message(request, messages.ERROR, 'Your ticket is not submitted successfully')
     context = {
         'form': form,
-        'message': message
     }
     return render(request, 'website/contact.html', context)
 
