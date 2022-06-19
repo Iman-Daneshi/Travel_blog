@@ -1,6 +1,6 @@
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, get_object_or_404
-from blog.models import Post
+from blog.models import Post, Comment
 from blog.templatetags.blog_tags import post_categories
 
 def blog_view(request, **kwargs):
@@ -28,6 +28,7 @@ def blog_view(request, **kwargs):
 def blog_single(request, pid):
     posts = Post.objects.filter(status=1)
     post = get_object_or_404(posts, pk=pid)
+    comments = Comment.objects.filter(post=post.id, approved=True)
     index = list(posts).index(post)
     next_post = posts[index-1] if index > 0 else None
     prev_post = posts[index+1] if index < len(posts)-1 else None
@@ -35,7 +36,7 @@ def blog_single(request, pid):
         'prev_post': prev_post,
         'post': post,
         'next_post': next_post,
-        
+        'comments': comments,
         }
     return render(request, 'blog/blog-single.html', context)
 
