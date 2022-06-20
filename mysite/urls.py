@@ -33,12 +33,20 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # website urls
     path('', include('website.urls')),
+    # blog urls
     path('blog/', include('blog.urls')),
+    # accounts urls
+    path('accounts/', include('accounts.urls')),
+    # sitemaps urls
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps},
     name='django.contrib.sitemaps.views.sitemap'),
+    # robots.txt
     path('robots.txt', include('robots.urls')),
+    # debug toolbar
     path('__debug__/', include('debug_toolbar.urls')),
+    # summernote urls
     path('summernote/', include('django_summernote.urls')),
+    # captcha urls
     path('captcha/', include('captcha.urls')),
 ]
 

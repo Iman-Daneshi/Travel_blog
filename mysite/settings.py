@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     # my apps
     'website.apps.WebsiteConfig',
     'blog.apps.BlogConfig',
+    'accounts.apps.AccountsConfig',
 
    	'multi_captcha_admin',
 
