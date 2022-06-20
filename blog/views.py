@@ -1,5 +1,6 @@
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from blog.models import Post, Comment
 from blog.forms import CommentForm
@@ -32,7 +33,6 @@ def blog_single(request, pid):
    
     if request.method != 'POST':
         form = CommentForm()
-       
     else: 
         form = CommentForm(request.POST)    
         if form.is_valid():
