@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.decorators import login_required
+from accounts.forms import SignUpForm
+
 
 def login_view(request):
     if request.user.is_authenticated:
@@ -30,6 +32,15 @@ def logout_view(request):
     return redirect('/')
 
 
-
 def signup_view(request):
-    return render(request, 'accounts/signup.html')
+    if not request.user.is_authenticated:
+        if request.method != 'POST':
+            form = SignUpForm()
+            return render(request, 'accounts/signup.html', {'form':form})
+        else:
+            form = SignUpForm(request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('accounts:login')
+    else:
+        return redirect('/')

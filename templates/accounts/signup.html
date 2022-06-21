@@ -1,0 +1,63 @@
+{% extends 'website/_base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- start banner Area -->
+<section class="relative about-banner">	
+	<div class="overlay overlay-bg"></div>
+	<div class="container">				
+		<div class="row d-flex align-items-center justify-content-center">
+			<div class="about-content col-lg-12">
+				<h1 class="text-white">
+					Sign up				
+				</h1>	
+				<p class="text-white link-nav"><a href="index.html">Home </a>  <span class="lnr lnr-arrow-right"></span>  <a href="contact.html">Sign up</a></p>
+			</div>	
+		</div>
+	</div>
+</section>
+<!-- End banner Area -->	
+
+
+<section class="vh-100" style="background-color:white">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        <div class="card shadow-2-strong" style="border-radius: 1rem;">
+          <div class="card-body p-5 text-center">
+
+            <h3 class="mb-5">Please sign up</h3>
+	        <form action="{% url 'accounts:signup' %}" method="post">
+                {% csrf_token %}
+                <div class="form-outline mb-4">
+                    <input name="first_name" type="text" class="form-control form-control-lg" required placeholder="First name"/>
+                </div>
+                <div class="form-outline mb-4">
+                    <input name="last_name" type="text" class="form-control form-control-lg" required placeholder="Last name"/>
+                </div>
+                <div class="form-outline mb-4">
+                    <input name="username" type="text" class="form-control form-control-lg" required placeholder="Username"/>
+                </div>
+                <div class="form-outline mb-4">
+                    <input name="email" type="email" class="form-control form-control-lg"  required placeholder="Email"/>
+                </div>
+                <div class="form-outline mb-4">
+                    <input name="password1" type="password" class="form-control form-control-lg" placeholder="Password"/> 
+                </div>
+                <div class="form-outline mb-4">
+                    <input name="password2" type="password" class="form-control form-control-lg" placeholder="Confirm Password"/> 
+                </div>
+
+                <!--
+                {{ form.as_p }}
+                -->
+
+                <button type='submit' class="primary-btn text-uppercase">Sign up</button>
+            </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock content %}
