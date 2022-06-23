@@ -1,6 +1,8 @@
+import re
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import redirect 
 from django.contrib import messages
 from blog.models import Post, Comment
 from blog.forms import CommentForm
@@ -43,18 +45,35 @@ def blog_single(request, pid):
     
     posts = Post.objects.filter(status=1)
     post = get_object_or_404(posts, pk=pid)
-    comments = Comment.objects.filter(post=post.id, approved=True)
-    index = list(posts).index(post)
-    next_post = posts[index-1] if index > 0 else None
-    prev_post = posts[index+1] if index < len(posts)-1 else None
-    context = {
-        'prev_post': prev_post,
-        'post': post,
-        'next_post': next_post,
-        'comments': comments,
-        'form': form,
+    if post.login_require and request.user.is_authenticated:
+        comments = Comment.objects.filter(post=post.id, approved=True)
+        index = list(posts).index(post)
+        next_post = posts[index-1] if index > 0 else None
+        prev_post = posts[index+1] if index < len(posts)-1 else None
+        context = {
+            'prev_post': prev_post,
+            'post': post,
+            'next_post': next_post,
+            'comments': comments,
+            'form': form,
+            }
+        return render(request, 'blog/blog-single.html', context)
+    elif not post.login_require:
+        comments = Comment.objects.filter(post=post.id, approved=True)
+        index = list(posts).index(post)
+        next_post = posts[index-1] if index > 0 else None
+        prev_post = posts[index+1] if index < len(posts)-1 else None
+        context = {
+            'prev_post': prev_post,
+            'post': post,
+            'next_post': next_post,
+            'comments': comments,
+            'form': form,
         }
-    return render(request, 'blog/blog-single.html', context)
+        return render(request, 'blog/blog-single.html', context)
+
+    else:
+        return redirect('accounts:login',)
 
 def blog_search(request):
     posts = Post.objects.filter(status=1)
