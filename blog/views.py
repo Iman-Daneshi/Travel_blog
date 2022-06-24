@@ -46,6 +46,8 @@ def blog_single(request, pid):
     posts = Post.objects.filter(status=1)
     post = get_object_or_404(posts, pk=pid)
     if post.login_require and request.user.is_authenticated:
+        post.counted_view += 1
+        post.save()
         comments = Comment.objects.filter(post=post.id, approved=True)
         index = list(posts).index(post)
         next_post = posts[index-1] if index > 0 else None
@@ -59,6 +61,8 @@ def blog_single(request, pid):
             }
         return render(request, 'blog/blog-single.html', context)
     elif not post.login_require:
+        post.counted_view += 1
+        post.save()
         comments = Comment.objects.filter(post=post.id, approved=True)
         index = list(posts).index(post)
         next_post = posts[index-1] if index > 0 else None
