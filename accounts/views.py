@@ -1,9 +1,12 @@
+from webbrowser import get
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.decorators import login_required
 from accounts.forms import SignUpForm
+from django.contrib.auth import get_user_model
+
 
 
 def login_view(request):
@@ -44,3 +47,7 @@ def signup_view(request):
                 return redirect('accounts:login')
     else:
         return redirect('/')
+
+def test_view(request):
+    users = get_user_model().objects.all()
+    return render(request, 'accounts/test.html', {'users': users})

@@ -2,6 +2,8 @@ from taggit.managers import TaggableManager
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
+from django.contrib.auth import get_user_model
+
 
 
 class Category(models.Model):
@@ -12,7 +14,7 @@ class Category(models.Model):
 
 class Post(models.Model):
     image = models.ImageField(upload_to='blog/', default='blog/default.jpg')
-    author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    author = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, null=True, blank=True)
     title = models.CharField(max_length=255)
     content = models.TextField()
     tags = TaggableManager()

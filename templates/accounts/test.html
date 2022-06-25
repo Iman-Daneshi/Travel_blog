@@ -1,0 +1,7 @@
+{% for user in users  %}
+<p>{{user.first_name}}</p>
+<p>{{user.username}}</p>
+<div>
+    <img src="{{ user.profile_picture.url }}" alt="">
+</div>
+{% endfor %}

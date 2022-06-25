@@ -1,7 +1,7 @@
 {% load static %}
 
 <div class="single-sidebar-widget user-info-widget">
-	<img src="{% static 'img/blog/user-info.png' %}" alt="">
+	<img src="{{ post.author.image.url }}" alt="">
 	
 		<a href=""><h4>{{ post.author.username }}</h4></a>
 			<p>
